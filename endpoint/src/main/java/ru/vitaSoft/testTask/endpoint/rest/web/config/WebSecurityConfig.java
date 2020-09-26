@@ -36,9 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				//Доступ только для пользователей с ролью Администратор
 				.antMatchers("/admin/**").hasRole("ADMIN")
-				//Доступ только для пользователей с ролью Администратор
+				//Доступ только для пользователей с ролью Оператор
 				.antMatchers("/proposals/**").hasRole("OPERATOR")
-				//Доступ разрешен всем пользователей
+				//Доступ только для пользователей с ролью Пользователь
 				.antMatchers("/office/**").hasRole("USER")
 				//Все остальные страницы требуют аутентификации
 				.anyRequest().authenticated()
