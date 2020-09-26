@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Office</title>
+</head>
+<body>
+<table>
+    <tr th:each="proposal: ${proposals}">
+        <td>
+            <span th:text="'Текст: ' + ${proposal.getContent()}"></span>
+        </td>
+        <td>
+            <span>Статус: </span>
+            <span th:if="${proposal.getStatus().toString().equals('ACCEPTED')}" style="color: #46b86b">Принято</span>
+            <span th:if="${proposal.getStatus().toString().equals('IDLE')}" style="color: #e1d00a">Ожидает рассмотрения</span>
+            <span th:if="${proposal.getStatus().toString().equals('DECLINED')}" style="color: #d33949">Отклонено</span>
+            <span th:if="${proposal.getStatus().toString().equals('DRAFT')}" style="color: #a7a7a7">Черновик</span>
+        </td>
+        <td>
+            <span th:text="'Дата создания: ' + ${proposal.getDate().toGMTString()}"></span>
+        </td>
+        <td>
+            <a th:if="${proposal.getStatus().toString().equals('DRAFT')}" th:href="'office/edit/' + ${proposal.getId()}">Редактировать</a>
+            <a th:if="${proposal.getStatus().toString().equals('DRAFT')}" th:href="'office/send/' + ${proposal.getId()}">Отправить</a>
+        </td>
+    </tr>
+</table>
+<a href="office/create">Создать заявку</a>
+</body>
+</html>

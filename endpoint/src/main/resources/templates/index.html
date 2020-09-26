@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <style>
+        body {
+            align-content: center;
+        }
+        .mainBar a{
+            font-size: 20px;
+            border-bottom: 5px solid whitesmoke;
+            margin: auto;
+            padding-top: 50px;
+            text-align: center;
+            width: 250px;
+            height: 75px;
+            color: whitesmoke;
+            background-color: black;
+            text-decoration: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <a href="/logout" style="float: right">Выйти</a>
+    <section class="mainBar">
+        <a href="/admin" class="mainBar">Кабинет администратора</a>
+        <a href="/proposals">Кабинет оператора</a>
+        <a href="/office">Кабинет пользователя</a>
+    </section>
+</body>
+</html>
