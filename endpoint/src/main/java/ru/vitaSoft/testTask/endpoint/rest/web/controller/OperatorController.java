@@ -50,8 +50,10 @@ public class OperatorController {
 	@GetMapping("accept/{id}")
 	public ResponseEntity acceptProposal(@PathVariable Long id) {
 		var proposal = proposalService.getById(id);
-		proposal.setStatus(ProposalStatus.ACCEPTED);
-		proposalService.update(proposal, id);
+		if (proposal.getStatus().equals(ProposalStatus.IDLE)) {
+			proposal.setStatus(ProposalStatus.ACCEPTED);
+			proposalService.update(proposal, id);
+		}
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
@@ -62,8 +64,10 @@ public class OperatorController {
 	@GetMapping("decline/{id}")
 	public ResponseEntity declineProposal(@PathVariable Long id) {
 		Proposal proposal = proposalService.getById(id);
-		proposal.setStatus(ProposalStatus.DECLINED);
-		proposalService.update(proposal, id);
+		if (proposal.getStatus().equals(ProposalStatus.IDLE)) {
+			proposal.setStatus(ProposalStatus.DECLINED);
+			proposalService.update(proposal, id);
+		}
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }
