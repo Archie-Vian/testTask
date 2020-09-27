@@ -32,12 +32,12 @@
 
 ### Пользователь
 
-***GET*** - **http://localhost:8080/operator/proposals/** *Просмотр пользователем списка принадлежащих ему заявок*
+***GET*** - **http://localhost:8080/user/proposals/** *Просмотр пользователем списка принадлежащих ему заявок*
 
-***POST*** - **http://localhost:8080/operator/proposals/create** *Создание заявки*
+***POST*** - **http://localhost:8080/user/proposals/create** *Создание заявки*
 
-***PUT*** - **http://localhost:8080/operator/proposals/edit/{id}** *Редактирование заявки с указаным ID*
+***PUT*** - **http://localhost:8080/user/proposals/edit/{id}** *Редактирование заявки с указаным ID*
 
-***GET*** - **http://localhost:8080/operator/proposals/send/{id}** *Отправление на рассмотрение заявки с указаным ID*
+***GET*** - **http://localhost:8080/user/proposals/send/{id}** *Отправление на рассмотрение заявки с указаным ID*
 
  
