@@ -1,5 +1,7 @@
 package ru.vitaSoft.testTask.entities.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -34,6 +36,7 @@ public class User extends BaseEntity implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Role> roles;
 
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Proposal> proposals;
 
@@ -58,21 +61,25 @@ public class User extends BaseEntity implements UserDetails {
 		return username;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		return true;

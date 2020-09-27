@@ -1,19 +1,22 @@
 package ru.vitaSoft.testTask.endpoint.rest.web.controller;
 
+import lombok.var;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import ru.vitaSoft.testTask.entities.model.User;
 import ru.vitaSoft.testTask.serivce.crud.RoleService;
 import ru.vitaSoft.testTask.serivce.crud.UserService;
 
+import java.util.List;
+
 /**
- * Контроллер страниц администратора
+ * Контроллер действий администратора
  */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
 	private final UserService userService;
@@ -21,8 +24,6 @@ public class AdminController {
 
 	/**
 	 * Конструктор.
-	 * @param userService CRUD сервис пльзователя.
-	 * @param roleService CRUD сервис роли пользователя.
 	 */
 	public AdminController(UserService userService, RoleService roleService) {
 		this.userService = userService;
@@ -30,31 +31,23 @@ public class AdminController {
 	}
 
 	/**
-	 * Главная траница кабинета администратора.
-	 * @param model представление веб-страницы
-	 * @return веб-страница
+	 * Просмотр списка зарегестрированных пользователей.
+	 * @return Список пользователей
 	 */
-	@GetMapping
-	public ModelAndView adminMain(ModelAndView model) {
-		model.setViewName("admin");
-		model.addObject("users", userService.getAll());
-		model.addObject("opRole", roleService.getByName("ROLE_OPERATOR"));
-		return model;
+	@GetMapping("/users")
+	public ResponseEntity<List<User>> getUsers() {
+		return ResponseEntity.ok(userService.getAll());
 	}
 
 	/**
 	 * Метод, предназначенный для назначения пользователя на роль оператора.
 	 * @param id Id пользователя, назначаемого на роль оператора.
-	 * @param model представление веб-страницы
-	 * @return веб-страница
 	 */
-	@GetMapping("makeOp/{id}")
-	public ModelAndView makeOperator(@PathVariable Long id, ModelAndView model) {
-		model.setViewName("redirect:/admin");
-		User user = userService.getById(id);
+	@GetMapping(value = "makeOp/{id}")
+	public void makeOperator(@PathVariable Long id) {
+		var user = userService.getById(id);
 		user.grandAuthority(roleService.getByName("ROLE_OPERATOR"));
 		userService.update(user, id);
-		return model;
 	}
 
 }

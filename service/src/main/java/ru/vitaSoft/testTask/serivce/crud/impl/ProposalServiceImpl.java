@@ -13,7 +13,7 @@ import ru.vitaSoft.testTask.entities.model.User;
 import ru.vitaSoft.testTask.serivce.crud.ProposalService;
 import ru.vitaSoft.testTask.serivce.crud.UserService;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -42,7 +42,7 @@ public class ProposalServiceImpl implements ProposalService {
 	 */
 	@Override
 	public Boolean create(Proposal newEntity) {
-		newEntity.setDate(new Date());
+		newEntity.setDate(LocalDateTime.now());
 		if (newEntity.getContent() == null) {
 			throw new IllegalArgumentException("Текст обращения не может быть пустым!");
 		}
