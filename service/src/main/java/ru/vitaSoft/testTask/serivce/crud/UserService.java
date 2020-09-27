@@ -32,7 +32,7 @@ public interface UserService extends AbstractService<User>, UserDetailsService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	boolean delete(Long id);
+	Boolean delete(Long id);
 
 	/**
 	 * Возвращает авторизованного пользователя.

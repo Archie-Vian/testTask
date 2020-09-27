@@ -69,12 +69,16 @@ public class UserController {
 	 * @return обновленная заявка
 	 */
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Proposal> editProposal(@PathVariable Long id, @RequestBody Proposal proposal) {
-		if (!proposalService.isRelatedToPrincipal(id) || !proposal.getStatus().equals(ProposalStatus.DRAFT)) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(proposal);
+	public ResponseEntity editProposal(@PathVariable Long id, @RequestBody Proposal proposal) {
+		if (!proposalService.isRelatedToPrincipal(id) || !proposalService.isDraft(id)) {
+			return new ResponseEntity(HttpStatus.FORBIDDEN);
 		}
+		if (proposalService.isBlank(proposal)) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+
 		proposalService.update(proposal, id);
-		return ResponseEntity.ok(proposal);
+		return ResponseEntity.ok(proposalService.getById(id));
 	}
 
 	/**
@@ -83,11 +87,11 @@ public class UserController {
 	 * @return пользовательская заявка
 	 */
 	@GetMapping("/send/{id}")
-	public ResponseEntity<Proposal> sendProposal(@PathVariable Long id) {
-		var proposal = proposalService.getById(id);
-		if (!proposalService.isRelatedToPrincipal(id) || !proposal.getStatus().equals(ProposalStatus.DRAFT)) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(proposal);
+	public ResponseEntity sendProposal(@PathVariable Long id) {
+		if (!proposalService.isRelatedToPrincipal(id) || !proposalService.isDraft(id)) {
+			return new ResponseEntity(HttpStatus.FORBIDDEN);
 		}
+		var proposal = proposalService.getById(id);
 		proposal.setStatus(ProposalStatus.IDLE);
 		proposalService.update(proposal, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(proposal);

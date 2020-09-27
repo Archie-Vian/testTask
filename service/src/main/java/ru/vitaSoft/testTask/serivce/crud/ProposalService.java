@@ -53,14 +53,14 @@ public interface ProposalService extends AbstractService<Proposal> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	boolean delete(Long id);
+	Boolean delete(Long id);
 
 	/**
 	 * Принадлежит ли заявка авторизованному пользователю.
 	 * @param proposalId Id пользовательской заявки
 	 * @return Результат проверки
 	 */
-	boolean isRelatedToPrincipal(Long proposalId);
+	Boolean isRelatedToPrincipal(Long proposalId);
 
 	/**
 	 * Разделение символов контента пользовательских заявок знаками '-'.
@@ -68,4 +68,25 @@ public interface ProposalService extends AbstractService<Proposal> {
 	 * @return Разделенное содержимое контента заявки
 	 */
 	String dashSplit(Proposal proposal);
+
+	/**
+	 * Является ли заявка черновой.
+	 * @param id Id заявки
+	 * @return Результат условия
+	 */
+	Boolean isDraft(Long id);
+
+	/**
+	 * Находится ли заявка в процессе рассмотрения.
+	 * @param id Id заявки
+	 * @return Результат условия
+	 */
+	Boolean isIdle(Long id);
+
+	/**
+	 * Отсутствует ли содержимое.
+	 * @param proposal пользовательская заявка
+	 * @return результат условия
+	 */
+	Boolean isBlank(Proposal proposal);
 }

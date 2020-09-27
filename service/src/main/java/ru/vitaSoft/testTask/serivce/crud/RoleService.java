@@ -31,7 +31,7 @@ public interface RoleService extends AbstractService<Role> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	boolean delete(Long id);
+	Boolean delete(Long id);
 
 	/**
 	 * Найти роль по её имени.

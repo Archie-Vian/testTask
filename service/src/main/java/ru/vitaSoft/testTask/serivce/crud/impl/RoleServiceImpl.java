@@ -60,7 +60,7 @@ public class RoleServiceImpl implements RoleService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean delete(Long id) {
+	public Boolean delete(Long id) {
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {

@@ -1,6 +1,7 @@
 package ru.vitaSoft.testTask.serivce.crud.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,7 +43,7 @@ public class ProposalServiceImpl implements ProposalService {
 	 */
 	@Override
 	public Boolean create(Proposal newEntity) {
-		if (newEntity.getContent() == null || newEntity.getContent().trim().length() == 0) {
+		if (isBlank(newEntity)) {
 			log.warn("Попытка создания пустой заявки!");
 			return false;
 		}
@@ -99,15 +100,16 @@ public class ProposalServiceImpl implements ProposalService {
 	 */
 	@Override
 	public Proposal update(Proposal updatedEntity, Long id) {
-		updatedEntity.setId(id);
-		return repository.save(updatedEntity);
+		var original = getById(id);
+		original.setContent(updatedEntity.getContent());
+		return repository.save(original);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean delete(Long id) {
+	public Boolean delete(Long id) {
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
@@ -121,7 +123,7 @@ public class ProposalServiceImpl implements ProposalService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isRelatedToPrincipal(Long id) {
+	public Boolean isRelatedToPrincipal(Long id) {
 		User user = userService.getPrincipal();
 		return getById(id).getUser().getId().equals(user.getId());
 	}
@@ -141,5 +143,29 @@ public class ProposalServiceImpl implements ProposalService {
 		separatedContent = separatedContent.substring(0, separatedContent.length()-1);
 
 		return separatedContent;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Boolean isDraft(Long id) {
+		return getById(id).getStatus().equals(ProposalStatus.DRAFT);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Boolean isIdle(Long id) {
+		return getById(id).getStatus().equals(ProposalStatus.IDLE);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Boolean isBlank(Proposal proposal) {
+		return proposal.getContent() == null || proposal.getContent().trim().length() == 0;
 	}
 }

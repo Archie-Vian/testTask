@@ -36,5 +36,5 @@ public interface AbstractService <Entity extends BaseEntity> {
 	 * @param id Id сущности для удаления
 	 * @return Успешно ли было произведено удаление.
 	 */
-	boolean delete(Long id);
+	Boolean delete(Long id);
 }
