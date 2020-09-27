@@ -36,19 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//Доступ только для пользователей с ролью Пользователь
 				.antMatchers("/user/**").hasRole("USER")
 				//Все остальные страницы требуют аутентификации
-				.anyRequest().authenticated()
-				.and()
-				//Настройка для входа в систему
-				.formLogin()
-				.loginPage("/login")
-				.failureUrl("/login-error")
-				//Перенарпавление на главную страницу после успешного входа
-				.defaultSuccessUrl("/")
-				.permitAll()
-				.and()
-				.logout()
-				.permitAll()
-				.logoutSuccessUrl("/");
+				.anyRequest().authenticated();
 	}
 
 	/**
