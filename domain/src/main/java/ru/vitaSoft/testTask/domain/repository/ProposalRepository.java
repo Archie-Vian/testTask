@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ProposalRepository extends JpaRepository<Proposal, Long> {
-	List<Proposal> findByUserIdOrderByDateDesc(Long userId);
+	List<Proposal> findByUserIdOrderByCreationDateDesc(Long userId);
 	List<Proposal> findByStatus(ProposalStatus status);
 }

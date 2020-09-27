@@ -33,7 +33,7 @@ public class Proposal extends BaseEntity{
 	private ProposalStatus status;
 
 	@Column(name = "creation_date")
-	private LocalDateTime date;
+	private LocalDateTime creationDate;
 
 	public User getUser() {
 		return user;
@@ -59,11 +59,11 @@ public class Proposal extends BaseEntity{
 		this.status = status;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
+	public LocalDateTime getCreationDate() {
+		return creationDate;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setCreationDate(LocalDateTime date) {
+		this.creationDate = date;
 	}
 }

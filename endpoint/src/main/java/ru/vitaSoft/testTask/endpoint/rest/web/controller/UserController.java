@@ -21,7 +21,7 @@ import java.util.List;
  * Контроллер страницы пользователя.
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/proposals")
 public class UserController {
 
 	private final ProposalService proposalService;
@@ -42,10 +42,13 @@ public class UserController {
 	 * Создание пользователем заявки.
 	 * @return Успешно ли было произведено создание заявки
 	 */
-	@PostMapping("create")
-	public ResponseEntity<Boolean> createProposalGet(@RequestBody Proposal proposal) {
-		var newProposal = proposalService.create(proposal);
-		return ResponseEntity.status(HttpStatus.CREATED).body(newProposal);
+	@PostMapping("/create")
+	public ResponseEntity createProposalGet(@RequestBody Proposal proposal) {
+		var isSucceed = proposalService.create(proposal);
+		if (!isSucceed) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity(HttpStatus.CREATED);
 	}
 
 	/**
@@ -65,7 +68,7 @@ public class UserController {
 	 * @param proposal одновленное состояние заявки
 	 * @return обновленная заявка
 	 */
-	@PutMapping("edit/{id}")
+	@PutMapping("/edit/{id}")
 	public ResponseEntity<Proposal> editProposal(@PathVariable Long id, @RequestBody Proposal proposal) {
 		if (!proposalService.isRelatedToPrincipal(id) || !proposal.getStatus().equals(ProposalStatus.DRAFT)) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(proposal);
@@ -79,10 +82,10 @@ public class UserController {
 	 * @param id Id пользовательской заявки
 	 * @return пользовательская заявка
 	 */
-	@GetMapping("send/{id}")
+	@GetMapping("/send/{id}")
 	public ResponseEntity<Proposal> sendProposal(@PathVariable Long id) {
 		var proposal = proposalService.getById(id);
-		if (!proposalService.isRelatedToPrincipal(id) || proposal.getStatus().equals(ProposalStatus.DRAFT)) {
+		if (!proposalService.isRelatedToPrincipal(id) || !proposal.getStatus().equals(ProposalStatus.DRAFT)) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(proposal);
 		}
 		proposal.setStatus(ProposalStatus.IDLE);

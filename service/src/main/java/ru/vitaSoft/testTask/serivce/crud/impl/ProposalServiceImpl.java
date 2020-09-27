@@ -42,15 +42,19 @@ public class ProposalServiceImpl implements ProposalService {
 	 */
 	@Override
 	public Boolean create(Proposal newEntity) {
-		newEntity.setDate(LocalDateTime.now());
-		if (newEntity.getContent() == null) {
-			throw new IllegalArgumentException("Текст обращения не может быть пустым!");
+		if (newEntity.getContent() == null || newEntity.getContent().trim().length() == 0) {
+			log.warn("Попытка создания пустой заявки!");
+			return false;
 		}
+		newEntity.setCreationDate(LocalDateTime.now());
 		newEntity.setStatus(ProposalStatus.DRAFT);
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		newEntity.setUser(user);
+
 		repository.save(newEntity);
+
 		return true;
 	}
 
@@ -71,7 +75,7 @@ public class ProposalServiceImpl implements ProposalService {
 	 */
 	@Override
 	public List<Proposal> getByUserId(Long userId) {
-		return repository.findByUserIdOrderByDateDesc(userId);
+		return repository.findByUserIdOrderByCreationDateDesc(userId);
 	}
 
 	/**

@@ -44,7 +44,7 @@ public class AdminController {
 	 * Метод, предназначенный для назначения пользователя на роль оператора.
 	 * @param id Id пользователя, назначаемого на роль оператора.
 	 */
-	@GetMapping(value = "makeOp/{id}")
+	@GetMapping(value = "/makeOp/{id}")
 	public ResponseEntity makeOperator(@PathVariable Long id) {
 		var user = userService.getById(id);
 		user.grandAuthority(roleService.getByName("ROLE_OPERATOR"));

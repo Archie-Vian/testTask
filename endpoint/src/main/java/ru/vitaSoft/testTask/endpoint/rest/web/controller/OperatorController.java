@@ -47,7 +47,7 @@ public class OperatorController {
 	 * Метод принятия пользовательской заявки.
 	 * @param id Id пользовательской заявки
 	 */
-	@GetMapping("accept/{id}")
+	@GetMapping("/accept/{id}")
 	public ResponseEntity acceptProposal(@PathVariable Long id) {
 		var proposal = proposalService.getById(id);
 		if (proposal.getStatus().equals(ProposalStatus.IDLE)) {
@@ -61,7 +61,7 @@ public class OperatorController {
 	 * Метод отклонения пользовательской заявки.
 	 * @param id Id пользовательской заявки
 	 */
-	@GetMapping("decline/{id}")
+	@GetMapping("/decline/{id}")
 	public ResponseEntity declineProposal(@PathVariable Long id) {
 		Proposal proposal = proposalService.getById(id);
 		if (proposal.getStatus().equals(ProposalStatus.IDLE)) {
