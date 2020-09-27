@@ -30,9 +30,6 @@ public class User extends BaseEntity implements UserDetails {
 	@Column(name = "password")
 	private String password;
 
-	@Transient
-	private String passwordConfirm;
-
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Role> roles;
 
@@ -93,14 +90,6 @@ public class User extends BaseEntity implements UserDetails {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getPasswordConfirm() {
-		return passwordConfirm;
-	}
-
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
 	}
 
 	public void grandAuthority(Role role) {

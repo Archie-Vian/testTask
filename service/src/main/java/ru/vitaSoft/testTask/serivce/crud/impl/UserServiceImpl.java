@@ -25,10 +25,22 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * Конструктор.
-	 * @param userRepository
+	 * @param userRepository репозиторий пользователя
 	 */
 	public UserServiceImpl(UserRepository userRepository) {
 		this.repository = userRepository;
+	}
+
+	@Override
+	public Boolean create(User newEntity) {
+		if (newEntity.getUsername() == null || newEntity.getUsername().trim().length() == 0) {
+			return false;
+		}
+		else if (newEntity.getPassword() == null || newEntity.getPassword().trim().length() == 0) {
+			return false;
+		}
+		repository.save(newEntity);
+		return true;
 	}
 
 	/**

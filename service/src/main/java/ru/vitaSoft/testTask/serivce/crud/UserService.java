@@ -14,6 +14,12 @@ public interface UserService extends AbstractService<User>, UserDetailsService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	Boolean create(User newEntity);
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	User getById(Long id);
 
 	/**

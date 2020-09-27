@@ -11,10 +11,9 @@ import java.util.List;
 public interface ProposalService extends AbstractService<Proposal> {
 
 	/**
-	 * Создание пользовательской заявки.
-	 * @param newEntity Сущность заявки для добавления в БД
-	 * @return Успешно ли было произведено создание
+	 * {@inheritDoc}
 	 */
+	@Override
 	Boolean create(Proposal newEntity);
 
 	/**

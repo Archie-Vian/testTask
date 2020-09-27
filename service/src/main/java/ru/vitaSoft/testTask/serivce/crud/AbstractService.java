@@ -11,6 +11,13 @@ import java.util.List;
 public interface AbstractService <Entity extends BaseEntity> {
 
 	/**
+	 * Сохранить сущность в БД
+	 * @param newEntity объект сущности
+	 * @return успешно ли было произведено создание
+	 */
+	Boolean create(Entity newEntity);
+
+	/**
 	 * Найти сущность по заданному Id.
 	 * @param id Id искомой сущности
 	 * @return Искомая сущность

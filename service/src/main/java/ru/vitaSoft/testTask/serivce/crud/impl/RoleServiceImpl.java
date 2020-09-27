@@ -31,6 +31,23 @@ public class RoleServiceImpl implements RoleService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Boolean create(Role newEntity) {
+		if(newEntity.getAuthority() == null || newEntity.getAuthority().trim().length() == 0) {
+			log.warn("Попытка создания роли с пустым именем!");
+			return false;
+		}
+		if (!newEntity.getAuthority().startsWith("ROLE_")) {
+			log.warn("Имя роли должно начинаться с 'ROLE_'");
+			return false;
+		}
+		repository.save(newEntity);
+		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Role getById(Long id) {
 		if(repository.existsById(id)) {
 			return repository.findById(id).get();

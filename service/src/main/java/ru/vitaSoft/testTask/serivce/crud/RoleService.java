@@ -13,6 +13,12 @@ public interface RoleService extends AbstractService<Role> {
 	 * {@inheritDoc}
 	 */
 	@Override
+	Boolean create(Role newEntity);
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	Role getById(Long id);
 
 	/**
