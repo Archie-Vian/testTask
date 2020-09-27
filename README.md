@@ -14,4 +14,30 @@
 - **User** : **111** - *Пользователь*
 - **User2** : **111** - *Пользователь*
 
+## API
+
+### Администратор
+
+***GET*** - **http://localhost:8080/admin/users** *Просмотр администратором списка всех пользователей*
+
+***GET*** - **http://localhost:8080/admin/makeOp/{id}** *Назначить пользователя с указаным ID Оператором*
+
+### Оператор
+
+***GET*** - **http://localhost:8080/operator/proposals** *Просмотр оператором списка заявок, ожидающих рассмотрения*
+
+***GET*** - **http://localhost:8080/operator/proposals/accept/{id}** *Одобрение заявки с указаным ID*
+
+***GET*** - **http://localhost:8080/operator/proposals/decline/{id}** *Отклонение заявки с указаным ID*
+
+### Пользователь
+
+***GET*** - **http://localhost:8080/user/proposals/** *Просмотр пользователем списка принадлежащих ему заявок*
+
+***POST*** - **http://localhost:8080/user/proposals/create** *Создание заявки*
+
+***PUT*** - **http://localhost:8080/user/proposals/edit/{id}** *Редактирование заявки с указаным ID*
+
+***GET*** - **http://localhost:8080/user/proposals/send/{id}** *Отправление на рассмотрение заявки с указаным ID*
+
  
