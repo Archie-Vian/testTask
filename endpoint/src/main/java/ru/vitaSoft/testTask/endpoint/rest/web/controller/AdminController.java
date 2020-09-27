@@ -1,6 +1,7 @@
 package ru.vitaSoft.testTask.endpoint.rest.web.controller;
 
 import lombok.var;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,10 +45,11 @@ public class AdminController {
 	 * @param id Id пользователя, назначаемого на роль оператора.
 	 */
 	@GetMapping(value = "makeOp/{id}")
-	public void makeOperator(@PathVariable Long id) {
+	public ResponseEntity makeOperator(@PathVariable Long id) {
 		var user = userService.getById(id);
 		user.grandAuthority(roleService.getByName("ROLE_OPERATOR"));
 		userService.update(user, id);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 }

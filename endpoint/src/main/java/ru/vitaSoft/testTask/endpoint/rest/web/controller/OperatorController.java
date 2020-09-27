@@ -1,6 +1,7 @@
 package ru.vitaSoft.testTask.endpoint.rest.web.controller;
 
 import lombok.var;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,10 +48,11 @@ public class OperatorController {
 	 * @param id Id пользовательской заявки
 	 */
 	@GetMapping("accept/{id}")
-	public void acceptProposal(@PathVariable Long id) {
+	public ResponseEntity acceptProposal(@PathVariable Long id) {
 		var proposal = proposalService.getById(id);
 		proposal.setStatus(ProposalStatus.ACCEPTED);
 		proposalService.update(proposal, id);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	/**
@@ -58,9 +60,10 @@ public class OperatorController {
 	 * @param id Id пользовательской заявки
 	 */
 	@GetMapping("decline/{id}")
-	public void declineProposal(@PathVariable Long id) {
+	public ResponseEntity declineProposal(@PathVariable Long id) {
 		Proposal proposal = proposalService.getById(id);
 		proposal.setStatus(ProposalStatus.DECLINED);
 		proposalService.update(proposal, id);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }
