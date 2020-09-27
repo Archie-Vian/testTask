@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity
+		httpSecurity.httpBasic().and()
 				.csrf()
 				.disable()
 				.authorizeRequests()
@@ -52,4 +52,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
 	}
+
 }
