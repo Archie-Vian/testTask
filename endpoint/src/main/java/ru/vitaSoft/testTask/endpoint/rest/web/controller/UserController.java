@@ -18,7 +18,7 @@ import ru.vitaSoft.testTask.serivce.crud.UserService;
 import java.util.List;
 
 /**
- * Контроллер страницы пользователя.
+ * Контроллер действий пользователя.
  */
 @RestController
 @RequestMapping("/user/proposals")

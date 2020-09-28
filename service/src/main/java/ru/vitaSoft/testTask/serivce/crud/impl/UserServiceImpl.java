@@ -31,6 +31,9 @@ public class UserServiceImpl implements UserService {
 		this.repository = userRepository;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Boolean create(User newEntity) {
 		if (newEntity.getUsername() == null || newEntity.getUsername().trim().length() == 0) {
