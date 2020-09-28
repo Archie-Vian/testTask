@@ -1,6 +1,8 @@
 package ru.vitaSoft.testTask.endpoint.rest.web.controller;
 
 import lombok.var;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +45,7 @@ public class UserController {
 	 * @return Успешно ли было произведено создание заявки
 	 */
 	@PostMapping("/create")
-	public ResponseEntity createProposalGet(@RequestBody Proposal proposal) {
+	public ResponseEntity createProposal(@RequestBody Proposal proposal) {
 		var isSucceed = proposalService.create(proposal);
 		if (!isSucceed) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -87,6 +89,7 @@ public class UserController {
 	 * @return пользовательская заявка
 	 */
 	@GetMapping("/send/{id}")
+	@CachePut(value = "idleProposes")
 	public ResponseEntity sendProposal(@PathVariable Long id) {
 		if (!proposalService.isRelatedToPrincipal(id) || !proposalService.isDraft(id)) {
 			return new ResponseEntity(HttpStatus.FORBIDDEN);

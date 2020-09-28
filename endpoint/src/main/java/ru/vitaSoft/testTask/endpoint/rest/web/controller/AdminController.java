@@ -1,6 +1,7 @@
 package ru.vitaSoft.testTask.endpoint.rest.web.controller;
 
 import lombok.var;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class AdminController {
 	 * @return Список пользователей
 	 */
 	@GetMapping("/users")
+	@Cacheable(value = "users")
 	public ResponseEntity<List<User>> getUsers() {
 		return ResponseEntity.ok(userService.getAll());
 	}

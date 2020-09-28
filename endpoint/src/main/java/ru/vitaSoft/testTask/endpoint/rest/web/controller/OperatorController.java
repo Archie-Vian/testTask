@@ -1,6 +1,7 @@
 package ru.vitaSoft.testTask.endpoint.rest.web.controller;
 
 import lombok.var;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class OperatorController {
 	 * @return список заявок, ожидающих рассмотрения
 	 */
 	@GetMapping
+	@Cacheable(value = "idleProposes")
 	public ResponseEntity<List<Proposal>> getIdleProposes() {
 		var proposals = proposalService.getByStatus(ProposalStatus.IDLE);
 		for (Proposal proposal : proposals) {
